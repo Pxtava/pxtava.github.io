@@ -1,365 +1,342 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pxtava | Web Tasarım</title>
+<title>Skin Config | Dijital Mağaza</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        body {
-            background: #0b0b12;
-            color: white;
-            line-height: 1.6;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: #08080d;
+    color: white;
+    min-height: 100vh;
+}
 
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(11,11,18,0.85);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            border-bottom: 1px solid #242433;
-        }
+/* Arka plan */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(120, 60, 255, .18), transparent 35%),
+        radial-gradient(circle at 80% 70%, rgba(0, 180, 255, .12), transparent 35%);
+    pointer-events: none;
+    z-index: -1;
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
+/* Üst bar */
+header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    background: rgba(10, 10, 18, .85);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-        .logo span {
-            color: #7c5cff;
-        }
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
-        nav a {
-            color: #ddd;
-            text-decoration: none;
-            margin-left: 22px;
-            font-size: 15px;
-        }
+.menu-button {
+    width: 45px;
+    height: 40px;
+    border: 0;
+    border-radius: 10px;
+    background: #171722;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
 
-        nav a:hover {
-            color: #9a82ff;
-        }
+/* Menü */
+.menu {
+    position: fixed;
+    top: 70px;
+    left: -280px;
+    width: 260px;
+    height: calc(100vh - 70px);
+    background: #101019;
+    border-right: 1px solid rgba(255,255,255,.08);
+    padding: 25px;
+    transition: .3s;
+    z-index: 99;
+}
 
-        section {
-            padding: 100px 7%;
-        }
+.menu.active {
+    left: 0;
+}
 
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding-top: 140px;
-        }
+.menu a {
+    display: block;
+    color: #ddd;
+    text-decoration: none;
+    padding: 15px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    transition: .2s;
+}
 
-        .hero-content {
-            max-width: 800px;
-        }
+.menu a:hover {
+    background: #1e1e2d;
+    color: white;
+}
 
-        .badge {
-            display: inline-block;
-            padding: 8px 15px;
-            border: 1px solid #39334f;
-            border-radius: 30px;
-            color: #b8aaff;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
+/* Ana alan */
+.hero {
+    text-align: center;
+    padding: 100px 20px 70px;
+}
 
-        h1 {
-            font-size: clamp(42px, 9vw, 76px);
-            line-height: 1.05;
-            margin-bottom: 25px;
-        }
+.hero h1 {
+    font-size: clamp(32px, 7vw, 62px);
+    margin-bottom: 20px;
+}
 
-        h1 span {
-            color: #8b72ff;
-        }
+.hero h1 span {
+    background: linear-gradient(90deg, #9b6cff, #5ac8ff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
 
-        .hero p {
-            color: #aaaabd;
-            font-size: 18px;
-            max-width: 650px;
-            margin: auto;
-        }
+.hero p {
+    max-width: 650px;
+    margin: auto;
+    color: #aaa;
+    line-height: 1.7;
+    font-size: 17px;
+}
 
-        .buttons {
-            margin-top: 35px;
-        }
+/* Bölüm */
+section {
+    max-width: 1100px;
+    margin: auto;
+    padding: 70px 20px;
+}
 
-        .btn {
-            display: inline-block;
-            padding: 14px 25px;
-            margin: 7px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.2s;
-        }
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+}
 
-        .primary {
-            background: #7c5cff;
-            color: white;
-        }
+/* Ürünler */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 22px;
+}
 
-        .secondary {
-            border: 1px solid #39394d;
-            color: white;
-        }
+.product {
+    background: rgba(18,18,28,.9);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 30px;
+    transition: .25s;
+}
 
-        .btn:hover {
-            transform: translateY(-3px);
-        }
+.product:hover {
+    transform: translateY(-6px);
+    border-color: rgba(145,100,255,.5);
+}
 
-        .title {
-            text-align: center;
-            margin-bottom: 45px;
-        }
+.product h3 {
+    font-size: 21px;
+    margin-bottom: 12px;
+}
 
-        .title h2 {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
+.product p {
+    color: #999;
+    line-height: 1.6;
+    min-height: 50px;
+}
 
-        .title p {
-            color: #9999ad;
-        }
+.price {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 25px 0;
+}
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1100px;
-            margin: auto;
-        }
+.buy {
+    width: 100%;
+    border: 0;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(90deg, #7652ff, #4ca9ff);
+}
 
-        .card {
-            background: #13131d;
-            border: 1px solid #29293a;
-            padding: 30px;
-            border-radius: 18px;
-            transition: 0.25s;
-        }
+.buy:hover {
+    opacity: .9;
+}
 
-        .card:hover {
-            transform: translateY(-7px);
-            border-color: #6551c9;
-        }
+/* Hakkımızda / iletişim */
+.info {
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+    color: #aaa;
+    line-height: 1.8;
+}
 
-        .icon {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
+footer {
+    text-align: center;
+    padding: 35px 20px;
+    color: #666;
+    border-top: 1px solid rgba(255,255,255,.08);
+}
 
-        .card h3 {
-            margin-bottom: 10px;
-        }
+/* Telefon */
+@media (max-width: 600px) {
+    .hero {
+        padding-top: 70px;
+    }
 
-        .card p {
-            color: #9999ad;
-        }
-
-        .about {
-            max-width: 850px;
-            margin: auto;
-            text-align: center;
-        }
-
-        .about p {
-            color: #aaaabd;
-            font-size: 17px;
-        }
-
-        .contact-box {
-            max-width: 750px;
-            margin: auto;
-            text-align: center;
-            background: #13131d;
-            border: 1px solid #29293a;
-            padding: 45px 25px;
-            border-radius: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            border-top: 1px solid #242433;
-            color: #777789;
-        }
-
-        @media (max-width: 750px) {
-            header {
-                padding: 15px 5%;
-            }
-
-            nav {
-                display: none;
-            }
-
-            section {
-                padding: 80px 5%;
-            }
-
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-        }
-    </style>
+    .product {
+        padding: 25px;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">Px<span>tava</span></div>
-
-    <nav>
-        <a href="#anasayfa">Ana Sayfa</a>
-        <a href="#hizmetler">Hizmetler</a>
-        <a href="#hakkimda">Hakkımda</a>
-        <a href="#iletisim">İletişim</a>
-    </nav>
+    <button class="menu-button" onclick="toggleMenu()">☰</button>
+    <div class="logo">Skin Config</div>
 </header>
 
+<nav class="menu" id="menu">
+    <a href="#anasayfa" onclick="closeMenu()">Ana Sayfa</a>
+    <a href="#urunler" onclick="closeMenu()">Ürünler</a>
+    <a href="#hakkimizda" onclick="closeMenu()">Hakkımızda</a>
+    <a href="#iletisim" onclick="closeMenu()">İletişim</a>
+</nav>
+
+<main>
 
 <section class="hero" id="anasayfa">
-    <div class="hero-content">
+    <h1>Merhaba, <span>Skin Config</span> sitesine hoş geldiniz!</h1>
 
-        <div class="badge">Modern Web Tasarım</div>
+    <p>
+        Yasal dijital ürünlerimizi inceleyebilir,
+        satın aldığınız ürünün dosyasına ve kurulum talimatlarına
+        ödeme sonrasında ulaşabilirsiniz.
+    </p>
+</section>
 
-        <h1>
-            Markanız için<br>
-            <span>profesyonel web siteleri.</span>
-        </h1>
+<section id="urunler">
+    <h2 class="section-title">Ürünler</h2>
 
-        <p>
-            Hızlı, modern ve mobil uyumlu web siteleri
-            tasarlıyorum. İşinizi internette daha profesyonel
-            şekilde göstermenize yardımcı oluyorum.
-        </p>
+    <div class="products">
 
-        <div class="buttons">
-            <a href="#hizmetler" class="btn primary">
-                Hizmetlerimi Gör
-            </a>
+        <div class="product">
+            <h3>PUBG Mumya — Skin Config</h3>
+            <p>
+                Dijital ürün paketi ve kurulum talimatları.
+            </p>
 
-            <a href="#iletisim" class="btn secondary">
-                İletişime Geç
-            </a>
+            <div class="price">50 TL</div>
+
+            <button class="buy" onclick="buyProduct('PUBG Mumya — Skin Config', 50)">
+                Satın Al
+            </button>
+        </div>
+
+        <div class="product">
+            <h3>İkinci Config Paketi</h3>
+            <p>
+                Dijital ürün paketi ve kurulum talimatları.
+            </p>
+
+            <div class="price">100 TL</div>
+
+            <button class="buy" onclick="buyProduct('İkinci Config Paketi', 100)">
+                Satın Al
+            </button>
+        </div>
+
+        <div class="product">
+            <h3>VIP Dijital Paket</h3>
+            <p>
+                VIP dijital ürün paketi ve kurulum talimatları.
+            </p>
+
+            <div class="price">200 TL</div>
+
+            <button class="buy" onclick="buyProduct('VIP Dijital Paket', 200)">
+                Satın Al
+            </button>
         </div>
 
     </div>
 </section>
 
+<section id="hakkimizda">
+    <h2 class="section-title">Hakkımızda</h2>
 
-<section id="hizmetler">
-
-    <div class="title">
-        <h2>Hizmetler</h2>
-        <p>İhtiyacınıza uygun modern web çözümleri.</p>
-    </div>
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="icon">🌐</div>
-            <h3>Web Sitesi</h3>
-            <p>
-                İşletmeniz veya kişisel markanız için
-                modern ve profesyonel web siteleri.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">📱</div>
-            <h3>Mobil Uyumlu Tasarım</h3>
-            <p>
-                Telefon, tablet ve bilgisayarlarda
-                düzgün çalışan responsive tasarımlar.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">⚡</div>
-            <h3>Hızlı ve Sade</h3>
-            <p>
-                Gereksiz karmaşadan uzak, hızlı açılan
-                ve kullanımı kolay sayfalar.
-            </p>
-        </div>
-
+    <div class="info">
+        Dijital ürünlerimizi kolay ve hızlı şekilde
+        sunmayı amaçlayan bir dijital mağazayız.
+        Ödeme sonrasında satın alınan ürün için
+        gerekli dosya ve kurulum bilgileri sağlanır.
     </div>
 </section>
-
-
-<section id="hakkimda">
-
-    <div class="title">
-        <h2>Hakkımda</h2>
-    </div>
-
-    <div class="about">
-        <p>
-            Merhaba! Ben Pxtava. Web tasarım ve geliştirme
-            alanında kendimi geliştiriyorum. Amacım küçük
-            işletmeler ve kişisel projeler için modern,
-            kullanışlı ve şık web siteleri hazırlamak.
-        </p>
-    </div>
-
-</section>
-
 
 <section id="iletisim">
+    <h2 class="section-title">İletişim</h2>
 
-    <div class="title">
-        <h2>İletişim</h2>
-        <p>Projeniz hakkında konuşmak için iletişime geçebilirsiniz.</p>
+    <div class="info">
+        Satın alma veya ürünlerle ilgili sorularınız için
+        bizimle iletişime geçebilirsiniz.
     </div>
-
-    <div class="contact-box">
-
-        <h3>Bir web sitesine mi ihtiyacınız var?</h3>
-
-        <p style="color:#9999ad; margin:15px 0 25px;">
-            Projenizi anlatın, birlikte değerlendirelim.
-        </p>
-
-        <!-- BURAYA KENDİ İLETİŞİM ADRESİNİ EKLEYEBİLİRSİN -->
-        <a href="mailto:ornek@email.com" class="btn primary">
-            E-posta Gönder
-        </a>
-
-    </div>
-
 </section>
 
+</main>
 
 <footer>
-    © 2026 Pxtava — Tüm hakları saklıdır.
+    © 2026 Skin Config — Tüm hakları saklıdır.
 </footer>
 
+<script>
+function toggleMenu() {
+    document.getElementById("menu").classList.toggle("active");
+}
+
+function closeMenu() {
+    document.getElementById("menu").classList.remove("active");
+}
+
+function buyProduct(product, price) {
+    alert(
+        product + " seçildi.\n\n" +
+        "Tutar: " + price + " TL\n\n" +
+        "Ödeme sistemi bağlantısı bir sonraki aşamada eklenecek."
+    );
+}
+</script>
+
 </body>
-    </html>
+            </html>
